@@ -110,5 +110,5 @@ PokemonDB.instance.set({
     defense: 10,
 })
 
-
+// console log
 console.log(PokemonDB.instance.get("Bulballsaurthanh"));
