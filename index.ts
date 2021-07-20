@@ -72,7 +72,7 @@ function createDatabase<T extends BaseRecord>() {
         public set(newValue: T) : void{
             this.beforeAddListeners.publish({
                 value: this.db[newValue.id],
-                newValue,
+                newValue: newValue,
             })
             this.db[newValue.id] = newValue;
 
@@ -104,11 +104,39 @@ const PokemonDB = createDatabase<Pokemon>();
 // const pokemonDB = createDatabase<Pokemon>();
 // const pokemonDB = new PokemonDB();
 
+// const unsubcribe1 = PokemonDB.instance.onAfterAdd((value) => {
+//     console.log(value);
+// })
+
+const unsubcribe2 = PokemonDB.instance.onBeforeAdd( (value) => {
+    console.log("Dang ki 1 \n" , value);    
+})
+
+PokemonDB.instance.onBeforeAdd( (value) => {
+    console.log("Dang ki 2 \n", value);    
+})
+
+
 PokemonDB.instance.set({
-    id : "Bulballsaurthanh",
+    id : "Bulballsaurthanh1",
     attack: 50,
     defense: 10,
 })
 
+// PokemonDB.instance.set({
+//     id : "Bulballsaurthanh1",
+//     attack: 560,
+//     defense: 10,
+// })
+
 // console log
-console.log(PokemonDB.instance.get("Bulballsaurthanh"));
+
+// unsubcribe();
+
+PokemonDB.instance.set({
+    id : "Bulballsaurthanh2",
+    attack: 50,
+    defense: 10,
+})
+
+// console.log(PokemonDB.instance.get("Bulballsaurthanh"));
